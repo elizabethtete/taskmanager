@@ -1,0 +1,27 @@
+.task-list {
+    margin-top: 20px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    .delete-btn {
+        cursor: pointer;
+    }
+  }
+  
+  li span {
+    flex: 1;
+  }
+  
