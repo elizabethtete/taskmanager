@@ -1,3 +1,5 @@
+import { TaskStatus } from "./task-status.model";
+
 export interface Task {
     id: number;
     title: string;
@@ -6,4 +8,5 @@ export interface Task {
     dueDate: Date;
     linkedTasks?: Task[];
     completed: boolean;
+    status: TaskStatus['value'];
 }  

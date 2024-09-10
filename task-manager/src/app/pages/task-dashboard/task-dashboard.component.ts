@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/task.service';
@@ -18,6 +18,7 @@ export class TaskDashboardComponent {
     private router: Router,
     private route: ActivatedRoute,
     private taskService: TaskService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -25,7 +26,11 @@ export class TaskDashboardComponent {
   }
 
   loadTasks(): void {
-    this.taskService.getTasks().subscribe(tasks => this.tasks = tasks);
+    this.taskService.getTasks()
+    .subscribe(tasks => {
+      this.tasks = [...tasks];
+    }
+    );
   }
 
   openFormModal(): void {
@@ -34,6 +39,7 @@ export class TaskDashboardComponent {
   }
 
   closeFormModal(): void {
+    this.taskToEdit = undefined;
     this.showModal = false;
     this.router.navigate(['..'], { relativeTo: this.route });
   }
@@ -42,7 +48,6 @@ export class TaskDashboardComponent {
     this.taskToEdit = task;
     this.showModal = true;
     this.router.navigate([`${task.id}/edit`], { relativeTo: this.route });
-
   }
 
   handleDelete(taskId: number): void {

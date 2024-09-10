@@ -1,4 +1,4 @@
-<div class="task-list">
+<!-- <div class="task-list">
     <h2>Your Tasks</h2>
     <ul>
       <li *ngFor="let task of tasks" class="task-item" (click)="editTask(task)">
@@ -9,5 +9,21 @@
         <button class="delete-btn" (click)="deleteTask(task.id)">Delete</button>
       </li>
     </ul>
+  </div> -->
+
+  <div class="task-columns">
+    <div *ngFor="let status of taskStatuses" class="task-column">
+      <h2>{{ status.label }}</h2>
+      <ul>
+        <li *ngFor="let task of tasks | filterByStatus: status.value" class="task-item" (click)="editTask(task)">
+          <span class="task-title">{{ task.title }}</span>
+          <span class="task-description">{{ task.description }}</span>
+          <span class="task-priority">Priority: {{ task.priority }}</span>
+          <span class="task-due-date">Due: {{ task.dueDate | date }}</span>
+          <button class="delete-btn" (click)="deleteTask(task.id); $event.stopPropagation()">Delete</button>
+        </li>
+      </ul>
+    </div>
   </div>
+  
   

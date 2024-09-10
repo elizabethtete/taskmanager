@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TASK_STATUSES } from 'src/app/models/task-status.model';
 import { Task } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -14,6 +15,7 @@ export class TaskFormComponent implements OnInit {
   @Output() closeModal = new EventEmitter<boolean>();
   taskForm!: FormGroup;
   existingTasks: Task[] = [];
+  taskStatuses = TASK_STATUSES;
 
   constructor(private fb: FormBuilder, private taskService: TaskService) {}
 
@@ -23,7 +25,8 @@ export class TaskFormComponent implements OnInit {
       description: ['', [Validators.maxLength(200)]],
       priority: ['', Validators.required],
       dueDate: ['', [Validators.required, this.notPastDate]],
-      linkedTasks: [[]]
+      linkedTasks: [[]],
+      status: ['', Validators.required]
     });
 
     
@@ -40,7 +43,8 @@ export class TaskFormComponent implements OnInit {
       description: task.description,
       priority: task.priority,
       dueDate: task.dueDate,
-      linkedTasks: task.linkedTasks
+      linkedTasks: task.linkedTasks,
+      status: task.status
     });
   }
 
