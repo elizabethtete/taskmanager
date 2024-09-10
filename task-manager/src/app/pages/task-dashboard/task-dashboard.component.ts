@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/task.service';
@@ -18,7 +18,6 @@ export class TaskDashboardComponent {
     private router: Router,
     private route: ActivatedRoute,
     private taskService: TaskService,
-    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {

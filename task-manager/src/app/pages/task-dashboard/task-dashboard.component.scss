@@ -12,6 +12,7 @@ header {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 16px;
   }
   
   button:hover {
@@ -23,21 +24,28 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
+    width: 90%;  // Default width for smaller screens
+    max-width: 500px;  // Maximum width for larger screens
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1001;
     padding: 20px;
+    box-sizing: border-box;
   }
   
   .modal-content {
     display: flex;
     flex-direction: column;
+    position: relative;
+    
     i {
-        color: black;
-        font-size: 20px;
-        align-self: flex-end;
+      color: black;
+      font-size: 20px;
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
     }
   }
   
@@ -49,6 +57,6 @@ header {
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
     z-index: 1000;
-    backdrop-filter: blur(5px); 
+    backdrop-filter: blur(5px);
   }
   

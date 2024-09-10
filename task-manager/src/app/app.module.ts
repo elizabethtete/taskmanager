@@ -1,26 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TaskFormComponent } from './components/task-form/task-form.component';
-import { TaskListComponent } from './components/task-list/task-list.component';
-import { TaskDashboardComponent } from './pages/task-dashboard/task-dashboard.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FilterByStatusPipe } from './shared/pipes/filter-by-status.pipe';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { CalendarModule } from './modules/calendar/calendar.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskFormComponent,
-    TaskListComponent,
-    TaskDashboardComponent,
-    FilterByStatusPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule 
+    DashboardModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
