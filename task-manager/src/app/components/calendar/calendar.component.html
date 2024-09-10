@@ -1,1 +1,25 @@
-<p>calendar works!</p>
+<div class="calendar-controls">
+    <button (click)="prevMonth()">Previous</button>
+    <button (click)="today()">Today</button>
+    <button (click)="nextMonth()">Next</button>
+</div>
+
+<div class="calendar-header">
+    <h2>{{ monthName }}</h2>
+</div>
+
+<mwl-calendar-month-view
+  [viewDate]="viewDate"
+  [events]="events"
+  (dayClicked)="onDayClick($event.day)"
+  class="calendar-month-view">
+</mwl-calendar-month-view>
+
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <i class="fa-solid fa-xmark" (click)="showModal = false"></i>
+    <h3>Add New Event</h3>
+    <input [(ngModel)]="newEventTitle" placeholder="Event Title" />
+    <button (click)="addEvent()">Add Event</button>
+  </div>
+</div>

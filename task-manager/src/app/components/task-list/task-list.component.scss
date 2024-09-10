@@ -1,3 +1,5 @@
+@import '../../../styles/variables.scss';
+
 .task-columns {
     display: flex;
     justify-content: space-between;
@@ -10,7 +12,7 @@
   
     .task-column {
       flex: 1;
-      background-color: #f9f9f9;
+      background-color: $task-column-background-color;
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -19,7 +21,7 @@
         font-size: 1.25rem;
         margin-bottom: 10px;
         text-align: center;
-        color: #333;
+        color: #ffffff;
       }
   
       ul {
@@ -31,7 +33,7 @@
       .task-item {
         display: flex;
         flex-direction: column;
-        background-color: #fff;
+        background-color: $task-backgound-color;
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 5px;
@@ -46,7 +48,7 @@
         .task-title {
           font-weight: bold;
           font-size: 1.1rem;
-          color: #2c3e50;
+          color: #ffffff;
         }
   
         .task-description {
@@ -57,7 +59,18 @@
   
         .task-priority {
           font-size: 0.9rem;
-          color: #e74c3c;
+
+          &.low-priority {
+            color: #4adb6d;
+          }
+          
+          &.medium-priority {
+            color: #d2a71f;
+          }
+          
+          &.high-priority {
+            color: #ee3849;
+          }
         }
   
         .task-due-date {

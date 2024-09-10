@@ -1,0 +1,77 @@
+@import '../../../styles/variables.scss';
+
+:host {
+    background-color: $app-background-color;
+    color: white;
+  }
+  
+  .calendar-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  
+    button {
+      margin: 0 5px;
+      padding: 10px 15px;
+      border: none;
+      background-color: #49346f;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #261447; 
+      }
+    }
+  }
+  
+  mwl-calendar-month-view {
+    color: $app-background-color;
+
+    .cal-month-view {
+        background-color: none !important;
+    }
+  
+    .cal-month-view.cal-day-cell {
+        background-color: $app-background-color;
+    }
+  
+    .cal-day-header {
+      background-color: $app-background-color;
+      color: white;
+    }
+  
+    .cal-day-cell {
+      background-color: $task-backgound-color;
+      color: $task-backgound-color;
+    }
+  
+    .cal-day-cell:hover {
+      background-color: #49346f; 
+    }
+  }
+  
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    background: $app-background-color; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    padding: 20px;
+    text-align: center;
+    color: white;
+  
+    i {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: white;
+      cursor: pointer;
+    }
+  }
+  

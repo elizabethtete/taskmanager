@@ -59,7 +59,16 @@ export class TaskFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.taskForm.valid) {
-      this.taskService.addTask(this.taskForm.value);
+      const taskData = this.taskForm.value;
+      if (this.taskToEdit) {
+        const updatedTask: Task = {
+          ...this.taskToEdit,
+          ...taskData
+        };
+        this.taskService.updateTask(updatedTask);
+      } else {
+        this.taskService.addTask(taskData);
+      }
       this.taskForm.reset();
       this.closeModal.next(true);
     }

@@ -1,1 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'styles/variables';
+@import 'node_modules/angular-calendar/css/angular-calendar.css';
+
+
+body {
+    background-color: $app-background-color;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  
+  #app-root {
+    height: 100%;
+  }
+  
+
+

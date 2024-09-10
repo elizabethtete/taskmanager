@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { CalendarViewComponent } from 'src/app/pages/calendar-view/calendar-view.component';
 import { CalendarComponent } from 'src/app/components/calendar/calendar.component';
+import { CalendarModule as AngularCalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,7 +14,12 @@ import { CalendarComponent } from 'src/app/components/calendar/calendar.componen
   ],
   imports: [
     CommonModule,
-    CalendarRoutingModule
+    CalendarRoutingModule,
+    AngularCalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
+    FormsModule
   ]
 })
 export class CalendarModule { }
