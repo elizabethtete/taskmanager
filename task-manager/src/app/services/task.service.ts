@@ -25,9 +25,17 @@ export class TaskService {
   }
 
   updateTask(updatedTask: Task): void {
-    const index = this.tasks.findIndex(task => task.id === updatedTask.id);
+    this.tasks = this.tasks.map(task =>
+      task.id === updatedTask.id ? updatedTask : task
+    );
+    this.tasksSubject.next(this.tasks);
+    this.saveTasks();
+  }
+
+  updateTaskStatus(taskId: number, newStatus: string): void {
+    const index = this.tasks.findIndex(task => task.id === taskId);
     if (index !== -1) {
-      this.tasks[index] = updatedTask;
+      this.tasks[index].status = newStatus;
       this.tasksSubject.next(this.tasks);
       this.saveTasks();
     }

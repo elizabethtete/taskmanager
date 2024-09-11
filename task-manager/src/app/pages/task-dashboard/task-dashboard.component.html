@@ -4,7 +4,12 @@
   </header>
   
   <section>
-    <app-task-list [tasks]="tasks" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-task-list>
+    <app-task-list
+    *ngIf="tasks$ | async as tasks"
+    [tasks]="tasks" 
+    (delete)="handleDelete($event)" 
+    (edit)="handleEdit($event)"
+    (updateStatus)="updateStatus($event)"></app-task-list>
   </section>
   
   <div class="modal" *ngIf="showModal">

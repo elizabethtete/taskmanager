@@ -3,6 +3,9 @@
 :host {
     background-color: $app-background-color;
     color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
   
   .calendar-controls {
@@ -20,34 +23,52 @@
       cursor: pointer;
   
       &:hover {
-        background-color: #261447; 
+        background-color: #6221d8;
       }
     }
   }
   
-  mwl-calendar-month-view {
-    color: $app-background-color;
-
+  .calendar-header {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  ::ng-deep mwl-calendar-month-view {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+  
     .cal-month-view {
-        background-color: none !important;
-    }
-  
-    .cal-month-view.cal-day-cell {
-        background-color: $app-background-color;
-    }
-  
-    .cal-day-header {
       background-color: $app-background-color;
-      color: white;
-    }
+      width: 100%;
+      max-height: calc(100vh - 150px); 
+      overflow-y: auto; 
   
-    .cal-day-cell {
-      background-color: $task-backgound-color;
-      color: $task-backgound-color;
-    }
+      .cal-header {
+        background-color: #675c7d;
   
-    .cal-day-cell:hover {
-      background-color: #49346f; 
+        &:hover {
+          color: white;
+          background-color: #6221d8;
+        }
+      }
+  
+      .cal-day-cell {
+        background-color: rgb(40 11 53);
+  
+        &:hover {
+          color: rgb(40 11 53);
+          background-color: #8d8992;
+        }
+      }
+  
+      .cal-day-cell.cal-today {
+        background-color: #8d8992;
+      }
+  
+      .cal-day-cell.cal-weekend .cal-day-number {
+        color: aqua;
+      }
     }
   }
   
@@ -58,7 +79,7 @@
     transform: translate(-50%, -50%);
     width: 90%;
     max-width: 400px;
-    background: $app-background-color; 
+    background: #261447;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1001;

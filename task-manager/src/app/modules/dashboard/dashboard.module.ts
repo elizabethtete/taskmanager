@@ -6,6 +6,7 @@ import { TaskFormComponent } from 'src/app/components/task-form/task-form.compon
 import { TaskListComponent } from 'src/app/components/task-list/task-list.component';
 import { FilterByStatusPipe } from 'src/app/shared/pipes/filter-by-status.pipe';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    DashboardRoutingModule 
+    DashboardRoutingModule,
+    DragDropModule
   ]
 })
 export class DashboardModule { }

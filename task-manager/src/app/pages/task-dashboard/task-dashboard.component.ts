@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
 import { Task } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -10,7 +11,8 @@ import { TaskService } from 'src/app/services/task.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskDashboardComponent {
-  tasks: Task[] = [];
+  tasks$: Observable<Task[]>;
+  // tasks: Task[] = [];
   showModal: boolean = false;
   taskToEdit?: Task;
 
@@ -18,19 +20,21 @@ export class TaskDashboardComponent {
     private router: Router,
     private route: ActivatedRoute,
     private taskService: TaskService,
-  ) {}
-
-  ngOnInit(): void {
-    this.loadTasks();
+  ) {
+    this.tasks$ = this.taskService.getTasks();
   }
 
-  loadTasks(): void {
-    this.taskService.getTasks()
-    .subscribe(tasks => {
-      this.tasks = [...tasks];
-    }
-    );
-  }
+  // ngOnInit(): void {
+  //   this.loadTasks();
+  // }
+
+  // loadTasks(): void {
+  //   this.taskService.getTasks()
+  //   .subscribe(tasks => {
+  //     this.tasks = [...tasks];
+  //   }
+  //   );
+  // }
 
   openFormModal(): void {
     this.showModal = true;
@@ -52,7 +56,18 @@ export class TaskDashboardComponent {
   handleDelete(taskId: number): void {
     if (confirm('Are you sure you want to delete this task?')) {
       this.taskService.deleteTask(taskId);
-      this.loadTasks();
+      this.tasks$ = this.taskService.getTasks(); 
+      // this.loadTasks();
     }
+  }
+
+  updateStatus(event: { task: Task, newStatus: string }): void {
+    // this.taskService.updateTaskStatus(event.task.id, event.newStatus);
+    this.tasks$ = this.tasks$.pipe(
+      map(tasks => tasks.map(task =>
+        task.id === event.task.id ? { ...task, status: event.newStatus } : task
+      ))
+    );
+    // this.tasks$ = this.taskService.getTasks();
   }
 }
