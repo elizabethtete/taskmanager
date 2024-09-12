@@ -32,19 +32,14 @@ export class TaskService {
     this.saveTasks();
   }
 
-  updateTaskStatus(taskId: number, newStatus: string): void {
-    const index = this.tasks.findIndex(task => task.id === taskId);
-    if (index !== -1) {
-      this.tasks[index].status = newStatus;
-      this.tasksSubject.next(this.tasks);
-      this.saveTasks();
-    }
-  }
-
   deleteTask(taskId: number): void {
     this.tasks = this.tasks.filter(task => task.id !== taskId);
     this.tasksSubject.next(this.tasks);
     this.saveTasks();
+  }
+
+  refreshTasks(): void {
+    this.loadTasks();
   }
 
   private loadTasks(): void {

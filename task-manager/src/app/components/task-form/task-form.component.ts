@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import { TASK_STATUSES } from 'src/app/models/task-status.model';
 import { Task } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/task.service';
@@ -11,7 +12,7 @@ import { TaskService } from 'src/app/services/task.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskFormComponent implements OnInit {
-  @Input() taskToEdit: Task | undefined;
+  @Input() taskToEditSubject$!: BehaviorSubject<Task | null>;
   @Output() closeModal = new EventEmitter<boolean>();
   taskForm!: FormGroup;
   existingTasks: Task[] = [];
@@ -32,9 +33,17 @@ export class TaskFormComponent implements OnInit {
     
     this.taskService.getTasks().subscribe(tasks => this.existingTasks = tasks);
 
-    if (this.taskToEdit) {
-      this.setFormValues(this.taskToEdit);
-    }
+    // if (this.taskToEdit) {
+    //   this.setFormValues(this.taskToEdit);
+    // }
+
+    this.taskToEditSubject$.subscribe(task => {
+      if (task) {
+        this.setFormValues(task);
+      } else {
+        this.taskForm.reset();
+      }
+    });
   }
 
   setFormValues(task: Task): void {
@@ -60,9 +69,9 @@ export class TaskFormComponent implements OnInit {
   onSubmit(): void {
     if (this.taskForm.valid) {
       const taskData = this.taskForm.value;
-      if (this.taskToEdit) {
+      if (this.taskToEditSubject$.getValue()) {
         const updatedTask: Task = {
-          ...this.taskToEdit,
+          ...this.taskToEditSubject$.getValue(),
           ...taskData
         };
         this.taskService.updateTask(updatedTask);

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Task } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -12,8 +12,12 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class TaskDashboardComponent {
   tasks$: Observable<Task[]>;
-  showModal: boolean = false;
-  taskToEdit?: Task;
+  // showModal: boolean = false;
+  taskToEditSubject$: BehaviorSubject<Task | null> = new BehaviorSubject<Task | null>(null);
+
+
+  showModal$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  // taskToEdit?: Task;
 
   constructor(
     private router: Router,
@@ -21,37 +25,40 @@ export class TaskDashboardComponent {
     private taskService: TaskService,
   ) {
     this.tasks$ = this.taskService.getTasks();
+
+    this.taskToEditSubject$.subscribe(task => {
+      this.showModal$.next(task !== null);
+    });
   }
 
   openFormModal(): void {
-    this.showModal = true;
+    this.showModal$.next(true);
     this.router.navigate(['create'], { relativeTo: this.route });
   }
 
   closeFormModal(): void {
-    this.taskToEdit = undefined;
-    this.showModal = false;
+    this.taskToEditSubject$.next(null);
+    this.showModal$.next(false);
+    this.taskService.refreshTasks();
+
     this.router.navigate(['..'], { relativeTo: this.route });
   }
 
   handleEdit(task: Task): void {
-    this.taskToEdit = task;
-    this.showModal = true;
+    this.taskToEditSubject$.next(task);
+    this.showModal$.next(true);
+
     this.router.navigate([`${task.id}/edit`], { relativeTo: this.route });
   }
 
   handleDelete(taskId: number): void {
     if (confirm('Are you sure you want to delete this task?')) {
       this.taskService.deleteTask(taskId);
-      this.tasks$ = this.taskService.getTasks(); 
     }
   }
 
   updateStatus(event: { task: Task, newStatus: string }): void {
-    this.tasks$ = this.tasks$.pipe(
-      map(tasks => tasks.map(task =>
-        task.id === event.task.id ? { ...task, status: event.newStatus } : task
-      ))
-    );
+    const updatedTask = { ...event.task, status: event.newStatus };
+    this.taskService.updateTask(updatedTask);
   }
 }

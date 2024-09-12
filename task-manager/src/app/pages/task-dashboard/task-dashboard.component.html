@@ -12,13 +12,13 @@
     (updateStatus)="updateStatus($event)"></app-task-list>
   </section>
   
-  <div class="modal" *ngIf="showModal">
+  <div class="modal" *ngIf="showModal$ | async">
     <div class="modal-content">
       <i class="fa-solid fa-xmark" (click)="closeFormModal()"></i>
-      <app-task-form (closeModal)="closeFormModal()" [taskToEdit]="taskToEdit"></app-task-form>      
+      <app-task-form (closeModal)="closeFormModal()" [taskToEditSubject$]="taskToEditSubject$"></app-task-form>      
     </div>
   </div>
   
-  <div class="overlay" *ngIf="showModal"></div>
+  <div class="overlay" *ngIf="showModal$ | async"></div>
   
   
