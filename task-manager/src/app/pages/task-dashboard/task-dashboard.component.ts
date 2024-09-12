@@ -12,7 +12,6 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class TaskDashboardComponent {
   tasks$: Observable<Task[]>;
-  // tasks: Task[] = [];
   showModal: boolean = false;
   taskToEdit?: Task;
 
@@ -23,18 +22,6 @@ export class TaskDashboardComponent {
   ) {
     this.tasks$ = this.taskService.getTasks();
   }
-
-  // ngOnInit(): void {
-  //   this.loadTasks();
-  // }
-
-  // loadTasks(): void {
-  //   this.taskService.getTasks()
-  //   .subscribe(tasks => {
-  //     this.tasks = [...tasks];
-  //   }
-  //   );
-  // }
 
   openFormModal(): void {
     this.showModal = true;
@@ -57,17 +44,14 @@ export class TaskDashboardComponent {
     if (confirm('Are you sure you want to delete this task?')) {
       this.taskService.deleteTask(taskId);
       this.tasks$ = this.taskService.getTasks(); 
-      // this.loadTasks();
     }
   }
 
   updateStatus(event: { task: Task, newStatus: string }): void {
-    // this.taskService.updateTaskStatus(event.task.id, event.newStatus);
     this.tasks$ = this.tasks$.pipe(
       map(tasks => tasks.map(task =>
         task.id === event.task.id ? { ...task, status: event.newStatus } : task
       ))
     );
-    // this.tasks$ = this.taskService.getTasks();
   }
 }
