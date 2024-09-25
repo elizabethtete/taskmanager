@@ -12,12 +12,10 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class TaskDashboardComponent {
   tasks$: Observable<Task[]>;
-  // showModal: boolean = false;
   taskToEditSubject$: BehaviorSubject<Task | null> = new BehaviorSubject<Task | null>(null);
 
 
   showModal$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  // taskToEdit?: Task;
 
   constructor(
     private router: Router,

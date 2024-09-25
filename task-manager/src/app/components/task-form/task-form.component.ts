@@ -33,10 +33,6 @@ export class TaskFormComponent implements OnInit {
     
     this.taskService.getTasks().subscribe(tasks => this.existingTasks = tasks);
 
-    // if (this.taskToEdit) {
-    //   this.setFormValues(this.taskToEdit);
-    // }
-
     this.taskToEditSubject$.subscribe(task => {
       if (task) {
         this.setFormValues(task);
